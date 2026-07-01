@@ -40,7 +40,7 @@ func main() {
 		if err != nil {
 			log.Printf("Ошибка при отправке метриков на сервер по gRPC: %v", err)
 		} else {
-			log.Printf("Метрики успешно отправлены! Ответ сервера: %s (Успех %t)", res.Message, res.Success)
+			log.Printf("Метрики успешно отправлены! Ответ сервера: %s (Succsec: %t)", res.Message, res.Success)
 		}
 	}
 }
