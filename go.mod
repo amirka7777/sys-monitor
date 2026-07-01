@@ -3,6 +3,7 @@ module github.com/amir/sys-monitor
 go 1.26.4
 
 require (
+	github.com/mattn/go-sqlite3 v1.14.47
 	google.golang.org/grpc v1.81.1
 	google.golang.org/protobuf v1.36.11
 )
