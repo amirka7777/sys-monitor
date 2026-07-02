@@ -75,7 +75,7 @@ func getFreeDiskSpace(path string) (int64, error) {
 
 func getMemoryUsage() (uint64, error) {
 
-	data, err := os.Readlink("/proc/meminfo")
+	data, err := os.ReadFile("/proc/meminfo")
 	if err != nil {
 		return 0, fmt.Errorf("Ошибка при чтении /proc/meminfo: %v", err)
 	}
