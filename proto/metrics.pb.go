@@ -27,6 +27,7 @@ type MetricRequest struct {
 	CpuUsage      float32                `protobuf:"fixed32,2,opt,name=cpu_usage,json=cpuUsage,proto3" json:"cpu_usage,omitempty"`
 	FreeDiskSpace uint64                 `protobuf:"varint,3,opt,name=free_disk_space,json=freeDiskSpace,proto3" json:"free_disk_space,omitempty"`
 	Timestamp     int64                  `protobuf:"varint,4,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	MemUsage      uint64                 `protobuf:"varint,5,opt,name=mem_usage,json=memUsage,proto3" json:"mem_usage,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -89,6 +90,13 @@ func (x *MetricRequest) GetTimestamp() int64 {
 	return 0
 }
 
+func (x *MetricRequest) GetMemUsage() uint64 {
+	if x != nil {
+		return x.MemUsage
+	}
+	return 0
+}
+
 type MetricResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
@@ -145,12 +153,13 @@ var File_proto_metrics_proto protoreflect.FileDescriptor
 
 const file_proto_metrics_proto_rawDesc = "" +
 	"\n" +
-	"\x13proto/metrics.proto\x12\x05proto\"\x8f\x01\n" +
+	"\x13proto/metrics.proto\x12\x05proto\"\xac\x01\n" +
 	"\rMetricRequest\x12\x1b\n" +
 	"\tserver_id\x18\x01 \x01(\tR\bserverId\x12\x1b\n" +
 	"\tcpu_usage\x18\x02 \x01(\x02R\bcpuUsage\x12&\n" +
 	"\x0ffree_disk_space\x18\x03 \x01(\x04R\rfreeDiskSpace\x12\x1c\n" +
-	"\ttimestamp\x18\x04 \x01(\x03R\ttimestamp\"D\n" +
+	"\ttimestamp\x18\x04 \x01(\x03R\ttimestamp\x12\x1b\n" +
+	"\tmem_usage\x18\x05 \x01(\x04R\bmemUsage\"D\n" +
 	"\x0eMetricResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage2L\n" +
