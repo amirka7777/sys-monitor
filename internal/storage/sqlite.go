@@ -39,6 +39,7 @@ func (s *Storage) createTable() error {
 		server_id TEXT NOT NULL,
 		cpu_usage REAL NOT NULL,
 		free_disk_space INTEGER NOT NULL,
+		mem_usage INTEGER NOT NULL,
 		timestamp INTEGER NOT NULL);`
 
 	_, err := s.db.Exec(query)
@@ -49,13 +50,13 @@ func (s *Storage) createTable() error {
 	return nil
 }
 
-func (s *Storage) SaveMetrics(serverID string, cpu float32, disk uint64, timestamp int64) error {
+func (s *Storage) SaveMetrics(serverID string, cpu float32, disk uint64, mem uint64, timestamp int64) error {
 
 	query := `
-	INSERT INTO metrics (server_id, cpu_usage, free_disk_space, timestamp) VALUES (?, ?, ?, ?)
+	INSERT INTO metrics (server_id, cpu_usage, free_disk_space, mem_usage, timestamp) VALUES (?, ?, ?, ?, ?)
 	`
 
-	if _, err := s.db.Exec(query, serverID, cpu, disk, timestamp); err != nil {
+	if _, err := s.db.Exec(query, serverID, cpu, disk, mem, timestamp); err != nil {
 		return fmt.Errorf("Ошибка при вставки данных в базу данных: %v", err)
 	}
 
