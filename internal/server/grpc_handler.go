@@ -22,10 +22,14 @@ func (s *MetricsServer) SendMetrics(ctx context.Context, req *proto.MetricReques
 
 	log.Printf("[gRPC-сервер] Принят пакет от %s. Записываю метрики в базу данных!\n", req.ServerId)
 
-	// log.Printf("[gRPC-сервер] Получены метрики от сервера: %s", req.ServerId)
-	// log.Printf("-> Cpu использовано: %.2f%%", req.CpuUsage)
-	// log.Printf("-> Свободное пространство на диске: %d байт", req.FreeDiskSpace)
-	// log.Printf("-> Timestamp: %d", req.Timestamp)
+	err := s.store.SaveMetrics(req.ServerId, req.CpuUsage, req.FreeDiskSpace, req.Timestamp)
+	if err != nil {
+		log.Printf("[База данных] не удалось сохранить метрики: %v\n", err)
+		return &proto.MetricResponse{
+			Success: false,
+			Message: "Ошибка при сохранении на сервере",
+		}, nil
+	}
 
 	return &proto.MetricResponse{
 		Success: true,
